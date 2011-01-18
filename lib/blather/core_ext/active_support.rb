@@ -36,7 +36,9 @@ end
 
 class Symbol  # @private
   def duplicable?; false; end
-  def to_proc; proc { |obj, *args| obj.send(self, *args) }; end
+  unless :to_proc.respond_to?(:to_proc)
+    def to_proc; proc { |obj, *args| obj.send(self, *args) }; end
+  end
 end
 
 class Numeric  # @private
